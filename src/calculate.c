@@ -1,13 +1,12 @@
 #include "calculate.h"
 
-#include <stdio.h>
-double calculate(char *postfix, double x, int *everything_is_fine) {
+double calculate(char *postfix, double x, int *everythingIsFine) {
     double nums[80];
     int top = -1, isDouble = 0;
     double num1, num2, result;
-    while (*postfix != '\0' && *everything_is_fine) {
+    while (*postfix != '\0' && *everythingIsFine) {
         if (*postfix == 'x') {
-            push_num(nums, &top, x);
+            pushNum(nums, &top, x);
         } else if (*postfix >= '0' && *postfix <= '9') {
             double currentNum = 0;
 
@@ -26,19 +25,19 @@ double calculate(char *postfix, double x, int *everything_is_fine) {
             }
             postfix--;
             isDouble = 0;
-            push_num(nums, &top, currentNum);
+            pushNum(nums, &top, currentNum);
         } else if (*postfix != ' ') {
-            num1 = pop_num(nums, &top);
-            num2 = pop_num(nums, &top);
-            *everything_is_fine = make_decision(postfix, num1, num2, &result, nums, &top);
-            push_num(nums, &top, result);
+            num1 = popNum(nums, &top);
+            num2 = popNum(nums, &top);
+            *everythingIsFine = makeDecision(postfix, num1, num2, &result, nums, &top);
+            pushNum(nums, &top, result);
         }
         postfix++;
     }
-    return pop_num(nums, &top);
+    return popNum(nums, &top);
 }
 
-int make_decision(char *postfix, double num1, double num2, double *result, double *nums, int *top) {
+int makeDecision(char *postfix, double num1, double num2, double *result, double *nums, int *top) {
     int res = 1;
     switch (*postfix) {
         case '+':
@@ -55,27 +54,27 @@ int make_decision(char *postfix, double num1, double num2, double *result, doubl
             break;
         case 's':
             *result = sin(num1);
-            push_num(nums, top, num2);
+            pushNum(nums, top, num2);
             break;
         case 'c':
             *result = cos(num1);
-            push_num(nums, top, num2);
+            pushNum(nums, top, num2);
             break;
         case 't':
             *result = tan(num1);
-            push_num(nums, top, num2);
+            pushNum(nums, top, num2);
             break;
         case 'g':
             *result = 1 / tan(num1);
-            push_num(nums, top, num2);
+            pushNum(nums, top, num2);
             break;
         case 'q':
             *result = sqrt(num1);
-            push_num(nums, top, num2);
+            pushNum(nums, top, num2);
             break;
         case 'l':
             *result = log(num1);
-            push_num(nums, top, num2);
+            pushNum(nums, top, num2);
             break;
         default:
             res = 0;

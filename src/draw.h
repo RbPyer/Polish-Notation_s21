@@ -1,5 +1,5 @@
-#ifndef DRAW_H
-#define DRAW_H
+#ifndef drawH
+#define drawH
 
 // step between our Y axis
 #define WIDTH 80
@@ -14,6 +14,6 @@
 
 #include "calculate.h"
 
-void draw_graph(char *postfix, int *everything_is_fine);
+void drawGraph(char *postfix, int *everythingIsFine);
 
 #endif

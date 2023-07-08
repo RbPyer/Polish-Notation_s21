@@ -1,14 +1,14 @@
 #include "parse.h"
 
 // reads our input via scanf string
-char *input_arr() {
+char *inputArr() {
     char *input = malloc(sizeof(char) * SIZE);
     scanf("%200s", input);  // считываем 200 символов
     return input;
 }
 
 // calculate operator weight depending on its state
-int op_weigth(char op) {
+int opWeight(char op) {
     int result = -1;
     switch (op) {
         case '+':
@@ -32,10 +32,10 @@ int op_weigth(char op) {
 }
 
 // check if our char is a operator
-int is_op(char ch) { return (ch == PLUS || ch == MINUS || ch == MUL || ch == DIV); }
+int isOp(char ch) { return (ch == PLUS || ch == MINUS || ch == MUL || ch == DIV); }
 
 // same but is a func
-int is_func(const char *input, int i, int len) {
+int isFunc(const char *input, int i, int len) {
     int result = 0;
     // reading further than just a symbol if it matches our pattern below
     if (i + 2 < len && input[i] == 's' && input[i + 1] == 'i' && input[i + 2] == 'n') result = sinF;
@@ -49,12 +49,12 @@ int is_func(const char *input, int i, int len) {
 }
 
 // make polish notation string
-char *convert(char *input, int len, int *everything_is_fine) {
+char *convert(char *input, int len, int *everythingIsFine) {
     char *result = malloc((len * 2) * sizeof(char));
     char stack[50];
     // top is counting nodes after head. -1 is empty stack
     int top = -1, j, i, flag = 0;
-    for (i = 0, j = 0; i < len && *(everything_is_fine); i++) {
+    for (i = 0, j = 0; i < len && *(everythingIsFine); i++) {
         // range 48-57 our nums, 120 is x
         if ((input[i] >= '0' && input[i] <= '9') || input[i] == 'x') {
             // '.' is for double check
@@ -65,26 +65,26 @@ char *convert(char *input, int len, int *everything_is_fine) {
             }
             i--;
         } else if (input[i] == '(')
-            push_op(stack, &top, input[i]);
+            pushOp(stack, &top, input[i]);
         else if (input[i] == ')') {
             while (top > -1 && stack[top] != '(') {
-                result[j++] = pop_op(stack, &top);
+                result[j++] = popOp(stack, &top);
                 result[j++] = ' ';
             }
             if (top > -1 && stack[top] != '(')
-                *(everything_is_fine) = 0;
+                *(everythingIsFine) = 0;
             else
                 top--;
             // check if our symbol is a operator or a func
-        } else if (is_op(input[i]) || is_func(input, i, len)) {
-            int func = is_func(input, i, len);
-            while (!func && top > -1 && op_weigth(stack[top]) >= op_weigth(input[i])) {
-                result[j++] = pop_op(stack, &top);
+        } else if (isOp(input[i]) || isFunc(input, i, len)) {
+            int func = isFunc(input, i, len);
+            while (!func && top > -1 && opWeight(stack[top]) >= opWeight(input[i])) {
+                result[j++] = popOp(stack, &top);
                 result[j++] = ' ';
             }
-            push_all_possible_op(func, stack, &top, input, &i);
+            pushAllPossibleOp(func, stack, &top, input, &i);
         } else
-            *(everything_is_fine) = 0;
+            *(everythingIsFine) = 0;
         if (flag) {
             result[j++] = ' ';
             flag = 0;
@@ -92,7 +92,7 @@ char *convert(char *input, int len, int *everything_is_fine) {
     }
 
     while (top > -1) {
-        result[j++] = pop_op(stack, &top);
+        result[j++] = popOp(stack, &top);
         result[j++] = ' ';
     }
     result[j] = '\0';
@@ -102,33 +102,33 @@ char *convert(char *input, int len, int *everything_is_fine) {
 
 //
 // refactor and gather all push ops in one function
-void push_all_possible_op(int func, char stack[50], int *top, char *input, int *i) {
+void pushAllPossibleOp(int func, char stack[50], int *top, char *input, int *i) {
     switch (func) {
         case 0:
-            push_op(stack, top, input[*i]);
+            pushOp(stack, top, input[*i]);
             break;
         case 1:
-            push_op(stack, top, SIN);
+            pushOp(stack, top, SIN);
             *i += 2;
             break;
         case 2:
-            push_op(stack, top, COS);
+            pushOp(stack, top, COS);
             *i += 2;
             break;
         case 3:
-            push_op(stack, top, TG);
+            pushOp(stack, top, TG);
             *i += 2;
             break;
         case 4:
-            push_op(stack, top, CTG);
+            pushOp(stack, top, CTG);
             *i += 2;
             break;
         case 5:
-            push_op(stack, top, SQRT);
+            pushOp(stack, top, SQRT);
             *i += 3;
             break;
         case 6:
-            push_op(stack, top, LN);
+            pushOp(stack, top, LN);
             *i += 1;
             break;
     }
