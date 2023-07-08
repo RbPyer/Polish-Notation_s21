@@ -10,7 +10,7 @@ MAKE = make
 
 ADD = git add .
 COMMIT = git commit -m "new task"
-PUSH = git push origin develop
+PUSH = git push origin oswyndel
 
 all: 
 	$(CC) $(CFLAGS) calculate.c draw.c stack.c parse.c graph.c -o $(OBJ_DIR)graph
