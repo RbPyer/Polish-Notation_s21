@@ -23,4 +23,4 @@ void drawGraph(char *postfix, int *everythingIsFine) {
     }
 }
 
-void delimiter() { printf("\n---DELIMETER---\n\n"); }
+void delimiter() { printf("\n\nDELIMITER\n\n"); }

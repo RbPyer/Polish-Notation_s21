@@ -25,6 +25,7 @@
 #define MINUS '-'
 #define MUL '*'
 #define DIV '/'
+#define unaryMinusF 7
 
 // reads our input via scanf string
 char *inputArr();

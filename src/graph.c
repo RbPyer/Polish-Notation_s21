@@ -1,17 +1,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "calculate.h"
 #include "draw.h"
 #include "parse.h"
 
 int main() {
     // считываем выражение для преобразования в нужный вид для польской нотации
-    char *expr = inputArr();
-    if (expr != NULL) {
-        int len = strlen(expr);
+    char* expression = inputArr();
+    if (expression != NULL) {
+        int len = strlen(expression);
         // конвертируем наше выражение в польскую нотацию
         int everythingIsFine = 1;
-        char *postfix = convert(expr, len, &everythingIsFine);
+        char* postfix = convert(expression, len, &everythingIsFine);
         if (postfix != NULL && everythingIsFine) {
 #ifdef renderString
             // опционально: вывод выражения в виде польской нотации (юзалось для отладки)
@@ -27,8 +28,11 @@ int main() {
             drawGraph(postfix, &everythingIsFine);
             free(postfix);
         }
-        free(expr);
+    } else {
+        printf("n/a");
     }
-
+    if (expression != NULL) {
+        free(expression);
+    }
     return 0;
 }

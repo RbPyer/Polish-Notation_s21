@@ -2,19 +2,19 @@
 
 char *inputArr() {
     char *input = malloc(sizeof(char) * SIZE);
-    char c = '_';
+    char iter = '_';
     int ind = 0;
-    while (c != '\n') {
-        c = getc(stdin);
-        if (c != ' ' && c != '\n') {
-            input[ind++] = c;
+    while (iter != '\n') {
+        iter = getc(stdin);
+        if (iter != ' ' && iter != '\n') {
+            input[ind++] = iter;
         }
     }
     input[ind] = '\0';
     return input;
 }
 
-// calculate operator weight depending on its state
+// приоритет операций
 int opWeight(char op) {
     int result = -1;
     switch (op) {
@@ -38,13 +38,13 @@ int opWeight(char op) {
     return result;
 }
 
-// check if our char is a operator
+// проверка на оператор
 int isOp(char ch) { return (ch == PLUS || ch == MINUS || ch == MUL || ch == DIV); }
 
-// same but is a func
+// проверка на функцию
 int isFunc(const char *input, int i, int len) {
     int result = 0;
-    // reading further than just a symbol if it matches our pattern below
+
     if (i + 2 < len && input[i] == 's' && input[i + 1] == 'i' && input[i + 2] == 'n') result = sinF;
     if (i + 2 < len && input[i] == 'c' && input[i + 1] == 'o' && input[i + 2] == 's') result = cosF;
     if (i + 2 < len && input[i] == 't' && input[i + 1] == 'a' && input[i + 2] == 'n') result = tanF;
@@ -57,23 +57,19 @@ int isFunc(const char *input, int i, int len) {
 
 // make polish notation string
 char *convert(char *input, int len, int *everythingIsFine) {
-    char *result = malloc((len * 2) * sizeof(char));
-    char stack[50];
-    // top is counting nodes after head. -1 is empty stack
+    char *result = malloc((len * 2) * sizeof(char)), stack[50];
     int top = -1, j, i, flag = 0;
     for (i = 0, j = 0; i < len && *(everythingIsFine); i++) {
-        // range 48-57 our nums, 120 is x
         if ((input[i] >= '0' && input[i] <= '9') || input[i] == 'x') {
-            // '.' is for double check
             while ((input[i] >= '0' && (int)input[i] <= '9') || input[i] == '.' || (input[i] == 'x')) {
                 result[j++] = input[i];
                 flag = 1;
                 i++;
             }
             i--;
-        } else if (input[i] == '(')
+        } else if (input[i] == '(') {
             pushOp(stack, &top, input[i]);
-        else if (input[i] == ')') {
+        } else if (input[i] == ')') {
             while (top > -1 && stack[top] != '(') {
                 result[j++] = popOp(stack, &top);
                 result[j++] = ' ';
@@ -82,7 +78,6 @@ char *convert(char *input, int len, int *everythingIsFine) {
                 *(everythingIsFine) = 0;
             else
                 top--;
-            // check if our symbol is a operator or a func
         } else if (isOp(input[i]) || isFunc(input, i, len)) {
             int func = isFunc(input, i, len);
             while (!func && top > -1 && opWeight(stack[top]) >= opWeight(input[i])) {
@@ -97,13 +92,11 @@ char *convert(char *input, int len, int *everythingIsFine) {
             flag = 0;
         }
     }
-
     while (top > -1) {
         result[j++] = popOp(stack, &top);
         result[j++] = ' ';
     }
     result[j] = '\0';
-
     return result;
 }
 
