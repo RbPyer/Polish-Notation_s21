@@ -5,23 +5,25 @@
 #include "parse.h"
 
 int main() {
-    // read expression as a string
+    // считываем выражение для преобразования в нужный вид для польской нотации
     char *expr = inputArr();
     if (expr != NULL) {
         int len = strlen(expr);
-        // convert our expr to polish notation like string
+        // конвертируем наше выражение в польскую нотацию
         int everythingIsFine = 1;
         char *postfix = convert(expr, len, &everythingIsFine);
         if (postfix != NULL && everythingIsFine) {
 #ifdef renderString
-            // write polish notation string
+            // опционально: вывод выражения в виде польской нотации (юзалось для отладки)
+            delimiter();
             printf("This is our polish notation string:\n");
             for (int i = 0; i < (int)strlen(postfix); i++) {
                 printf("%c", postfix[i]);
             }
-            printf("\n\n");
+            putchar('\n');
+            delimiter();
 #endif
-            // output our graphic
+            // рендер графика
             drawGraph(postfix, &everythingIsFine);
             free(postfix);
         }

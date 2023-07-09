@@ -29,7 +29,7 @@ double calculate(char *postfix, double x, int *everythingIsFine) {
         } else if (*postfix != ' ') {
             num1 = popNum(nums, &top);
             num2 = popNum(nums, &top);
-            *everythingIsFine = makeDecision(postfix, num1, num2, &result, nums, &top);
+            *everythingIsFine = makeSolution(postfix, num1, num2, &result, nums, &top);
             pushNum(nums, &top, result);
         }
         postfix++;
@@ -37,43 +37,43 @@ double calculate(char *postfix, double x, int *everythingIsFine) {
     return popNum(nums, &top);
 }
 
-int makeDecision(char *postfix, double num1, double num2, double *result, double *nums, int *top) {
+int makeSolution(char *postfix, double num1, double num2, double *result, double *nums, int *top) {
     int res = 1;
     switch (*postfix) {
-        case '+':
+        case PLUS:
             *result = num2 + num1;
             break;
-        case '-':
+        case MINUS:
             *result = num2 - num1;
             break;
-        case '*':
+        case MUL:
             *result = num2 * num1;
             break;
-        case '/':
+        case DIV:
             *result = num2 / num1;
             break;
-        case 's':
+        case SIN:
             *result = sin(num1);
             pushNum(nums, top, num2);
             break;
-        case 'c':
+        case COS:
             *result = cos(num1);
             pushNum(nums, top, num2);
             break;
-        case 't':
+        case TG:
             *result = tan(num1);
             pushNum(nums, top, num2);
             break;
-        case 'g':
+        case CTG:
             *result = 1 / tan(num1);
             pushNum(nums, top, num2);
             break;
-        case 'q':
+        case SQRT:
             *result = sqrt(num1);
             pushNum(nums, top, num2);
             break;
-        case 'l':
-            *result = log(num1);
+        case LN:
+            *result = log10(num1);
             pushNum(nums, top, num2);
             break;
         default:

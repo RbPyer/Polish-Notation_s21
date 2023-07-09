@@ -17,7 +17,7 @@ all:
 
 
 build_with_render:
-	$(CC) $(CFLAGS) -DRENDER_STRING calculate.c draw.c stack.c parse.c graph.c -o $(OBJ_DIR)graph
+	$(CC) $(CFLAGS) -DrenderString calculate.c draw.c stack.c parse.c graph.c -o $(OBJ_DIR)graph
 
 rebuild:
 	$(MAKE) clean

@@ -1,9 +1,16 @@
 #include "parse.h"
 
-// reads our input via scanf string
 char *inputArr() {
     char *input = malloc(sizeof(char) * SIZE);
-    scanf("%200s", input);  // считываем 200 символов
+    char c = '_';
+    int ind = 0;
+    while (c != '\n') {
+        c = getc(stdin);
+        if (c != ' ' && c != '\n') {
+            input[ind++] = c;
+        }
+    }
+    input[ind] = '\0';
     return input;
 }
 
@@ -11,20 +18,20 @@ char *inputArr() {
 int opWeight(char op) {
     int result = -1;
     switch (op) {
-        case '+':
-        case '-':
+        case PLUS:
+        case MINUS:
             result = 1;
             break;
-        case '*':
-        case '/':
+        case MUL:
+        case DIV:
             result = 2;
             break;
-        case 's':  // sin
-        case 'c':  // cos
-        case 't':  // tan
-        case 'g':  // ctg
-        case 'q':  // sqrt
-        case 'l':  // ln
+        case SIN:   // sin
+        case COS:   // cos
+        case TG:    // tan
+        case CTG:   // ctg
+        case SQRT:  // sqrt
+        case LN:    // ln
             result = 3;
             break;
     }

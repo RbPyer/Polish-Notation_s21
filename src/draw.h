@@ -15,5 +15,6 @@
 #include "calculate.h"
 
 void drawGraph(char *postfix, int *everythingIsFine);
+void delimiter();
 
 #endif
