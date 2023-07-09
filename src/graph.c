@@ -27,6 +27,8 @@ int main() {
             // рендер графика
             drawGraph(postfix, &everythingIsFine);
             free(postfix);
+        } else {
+            printf("n/a");
         }
     } else {
         printf("n/a");
