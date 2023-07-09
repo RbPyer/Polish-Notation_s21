@@ -1,7 +1,7 @@
 #include "calculate.h"
 
 double calculate(char *postfix, double x, int *everythingIsFine) {
-    double nums[80];
+    double nums[82];
     int top = -1, isDouble = 0;
     double num1, num2, result;
     while (*postfix != '\0' && *everythingIsFine) {

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Wextra 
+CFLAGS = -Wall -Wextra -Wextra -fsanitize=leak
 
 
 OBJ_DIR = ../build/
