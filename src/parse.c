@@ -57,7 +57,7 @@ int opWeight(char op) {
 }
 
 // проверка на оператор
-int isOp(char ch) { return (ch == PLUS || ch == MINUS || ch == MUL || ch == DIV); }
+int isOp(char ch) { return ch == PLUS || ch == MINUS || ch == MUL || ch == DIV; }
 
 // проверка на функцию
 int isFunc(const char *input, int i, int len) {
@@ -119,8 +119,7 @@ char *convert(char *input, int len, int *everythingIsFine) {
     return result;
 }
 
-//
-// refactor and gather all push ops in one function
+// обработка операций и их пуш
 void pushAllPossibleOp(int func, char stack[50], int *top, char *input, int *i) {
     switch (func) {
         case 0:
