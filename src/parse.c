@@ -1,9 +1,25 @@
 #include "parse.h"
 
+void validateOpers(char *stack) {
+    int type = 1;
+    for (int i = 0; stack[i] != '\0'; i++) {
+        if (isOp(stack[i])) {
+            if (type && stack[i] == MINUS) {
+                stack[i] = UMINUS;
+            }
+            type = 1;
+        }
+        if (stack[i] == 'x' || (stack[i] >= '0' && stack[i] <= '9')) {
+            type = 0;
+        }
+    }
+}
+
 char *inputArr() {
     char *input = malloc(sizeof(char) * SIZE);
     char iter = '_';
     int ind = 0;
+
     while (iter != '\n') {
         iter = getc(stdin);
         if (iter != ' ' && iter != '\n') {
@@ -11,6 +27,7 @@ char *inputArr() {
         }
     }
     input[ind] = '\0';
+    validateOpers(input);
     return input;
 }
 
@@ -32,6 +49,7 @@ int opWeight(char op) {
         case CTG:   // ctg
         case SQRT:  // sqrt
         case LN:    // ln
+        case UMINUS:
             result = 3;
             break;
     }
@@ -52,6 +70,7 @@ int isFunc(const char *input, int i, int len) {
     if (i + 3 < len && input[i] == 's' && input[i + 1] == 'q' && input[i + 2] == 'r' && input[i + 3] == 't')
         result = sqrtF;
     if (i + 1 < len && input[i] == 'l' && input[i + 1] == 'n') result = lnF;
+    if (i < len && input[i] == '~') result = unaryMinusF;
     return result;
 }
 
@@ -130,6 +149,9 @@ void pushAllPossibleOp(int func, char stack[50], int *top, char *input, int *i) 
         case 6:
             pushOp(stack, top, LN);
             *i += 1;
+            break;
+        case 7:
+            pushOp(stack, top, UMINUS);
             break;
     }
 }

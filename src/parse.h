@@ -26,6 +26,9 @@
 #define MUL '*'
 #define DIV '/'
 #define unaryMinusF 7
+#define UMINUS '~'
+
+void validateOpers(char *stack);
 
 // reads our input via scanf string
 char *inputArr();

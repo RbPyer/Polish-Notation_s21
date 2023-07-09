@@ -10,7 +10,7 @@ void drawGraph(char *postfix, int *everythingIsFine) {
         coords[count++] = calculate(postfix, x, everythingIsFine);
     }
     if (*everythingIsFine) {
-        for (double y = uyLimit; y >= dyLimit; y -= STEP) {
+        for (double y = dyLimit; y <= uyLimit; y += STEP) {
             for (int x = 0; x < WIDTH; x++) {
                 if (coords[x] <= y + INFELICITY && coords[x] >= y - INFELICITY) {
                     putchar('*');

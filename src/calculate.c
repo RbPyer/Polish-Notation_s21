@@ -76,6 +76,11 @@ int makeSolution(char *postfix, double num1, double num2, double *result, double
             *result = log10(num1);
             pushNum(nums, top, num2);
             break;
+        case UMINUS:
+            *result = -num1;
+            pushNum(nums, top, num2);
+            break;
+
         default:
             res = 0;
     }
