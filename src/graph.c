@@ -29,10 +29,11 @@ int main() {
             free(postfix);
         } else {
             printf("n/a");
+            if (postfix != NULL) {
+                free(postfix);
+            }
         }
-    } else {
-        printf("n/a");
-    }
+    } 
     if (expression != NULL) {
         free(expression);
     }
