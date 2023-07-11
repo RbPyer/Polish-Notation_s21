@@ -10,7 +10,7 @@ MAKE = make
 
 ADD = git add .
 COMMIT = git commit -m "new task"
-PUSH = git push origin git@github.com:RbPyer/Polish-Notation_s21.git develop
+PUSH = git push origin develop
 
 all: 
 	$(CC) $(CFLAGS) calculate.c draw.c stack.c parse.c graph.c -o $(OBJ_DIR)graph
