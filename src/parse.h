@@ -42,5 +42,7 @@ char *convert(char *input, int len, int *everythingIsFine);
 int isFunc(const char *input, int i, int len);
 // decomposize operators
 void pushAllPossibleOp(int func, char stack[50], int *top, char *input, int *i);
+int sCount(char *str);
+int checkOpers(char *str);
 
 #endif
