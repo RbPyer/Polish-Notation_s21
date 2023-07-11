@@ -29,8 +29,16 @@ double calculate(char *postfix, double x, int *everythingIsFine) {
         } else if (*postfix != ' ') {
             num1 = popNum(nums, &top);
             num2 = popNum(nums, &top);
-            *everythingIsFine = makeSolution(postfix, num1, num2, &result, nums, &top);
-            pushNum(nums, &top, result);
+            if (isnan(num1) == 0) {
+                *everythingIsFine = makeSolution(postfix, num1, num2, &result, nums, &top);
+                if (*everythingIsFine == 1) {
+                    pushNum(nums, &top, result);
+                }
+            }
+            else {
+                *everythingIsFine = 0;
+                break;
+            }
         }
         postfix++;
     }
@@ -39,50 +47,54 @@ double calculate(char *postfix, double x, int *everythingIsFine) {
 
 int makeSolution(char *postfix, double num1, double num2, double *result, double *nums, int *top) {
     int res = 1;
-    switch (*postfix) {
-        case PLUS:
-            *result = num2 + num1;
-            break;
-        case MINUS:
-            *result = num2 - num1;
-            break;
-        case MUL:
-            *result = num2 * num1;
-            break;
-        case DIV:
-            *result = num2 / num1;
-            break;
-        case SIN:
-            *result = sin(num1);
-            pushNum(nums, top, num2);
-            break;
-        case COS:
-            *result = cos(num1);
-            pushNum(nums, top, num2);
-            break;
-        case TG:
-            *result = tan(num1);
-            pushNum(nums, top, num2);
-            break;
-        case CTG:
-            *result = 1 / tan(num1);
-            pushNum(nums, top, num2);
-            break;
-        case SQRT:
-            *result = sqrt(num1);
-            pushNum(nums, top, num2);
-            break;
-        case LN:
-            *result = log10(num1);
-            pushNum(nums, top, num2);
-            break;
-        case UMINUS:
-            *result = -num1;
-            pushNum(nums, top, num2);
-            break;
+    if (isnan(num1) != 1) {
+        switch (*postfix) {
+            case PLUS:
+                *result = num2 + num1;
+                break;
+            case MINUS:
+                *result = num2 - num1;
+                break;
+            case MUL:
+                *result = num2 * num1;
+                break;
+            case DIV:
+                *result = num2 / num1;
+                break;
+            case SIN:
+                *result = sin(num1);
+                pushNum(nums, top, num2);
+                break;
+            case COS:
+                *result = cos(num1);
+                pushNum(nums, top, num2);
+                break;
+            case TG:
+                *result = tan(num1);
+                pushNum(nums, top, num2);
+                break;
+            case CTG:
+                *result = 1 / tan(num1);
+                pushNum(nums, top, num2);
+                break;
+            case SQRT:
+                *result = sqrt(num1);
+                pushNum(nums, top, num2);
+                break;
+            case LN:
+                *result = log10(num1);
+                pushNum(nums, top, num2);
+                break;
+            case UMINUS:
+                *result = -num1;
+                pushNum(nums, top, num2);
+                break;
 
-        default:
-            res = 0;
+            default:
+                res = 0;
+        }
+    } else {
+        res = 0;
     }
     return res;
 }

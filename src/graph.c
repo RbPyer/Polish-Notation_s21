@@ -5,8 +5,6 @@
 #include "draw.h"
 #include "parse.h"
 
-
-
 int main() {
     // считываем выражение для преобразования в нужный вид для польской нотации
     char* expression = inputArr();
