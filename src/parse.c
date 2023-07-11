@@ -156,15 +156,19 @@ void pushAllPossibleOp(int func, char stack[50], int *top, char *input, int *i) 
 }
 
 int sCount(char *str) {
+    int flag = 1;
     int lcount = 0, rcount = 0;
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] == '(') {
             lcount++;
         } else if (str[i] == ')') {
             rcount++;
+            if (str[i + 1] == '(') {
+                flag = 0;
+            }
         }
     }
-    return lcount == rcount;
+    return flag && lcount == rcount;
 }
 
 int checkOpers(char *str) {
