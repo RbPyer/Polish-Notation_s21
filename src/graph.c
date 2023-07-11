@@ -5,30 +5,7 @@
 #include "draw.h"
 #include "parse.h"
 
-int sCount(char* str) {
-    int lcount = 0, rcount = 0;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (str[i] == '(') {
-            lcount++;
-        } else if (str[i] == ')') {
-            rcount++;
-        }
-    }
-    return lcount == rcount;
-}
 
-int checkOpers(char* str) {
-    int flag = 1;
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (isOp(str[i]) == 1 || str[i] == '~') {
-            if (isOp(str[i + 1]) == 1 || str[i + 1] == '~') {
-                flag = 0;
-                break;
-            }
-        }
-    }
-    return flag;
-}
 
 int main() {
     // считываем выражение для преобразования в нужный вид для польской нотации
