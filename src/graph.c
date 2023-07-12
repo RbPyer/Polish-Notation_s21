@@ -34,8 +34,7 @@ int main() {
                 free(postfix);
             }
         }
-    }
-    else {
+    } else {
         printf("n/a");
     }
     if (expression != NULL) {
