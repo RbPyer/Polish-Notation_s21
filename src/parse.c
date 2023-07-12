@@ -15,15 +15,18 @@ void validateOpers(char *stack) {
     }
 }
 
-char *inputArr() {
+char *inputArr(int *everythingIsFine) {
     char *input = malloc(sizeof(char) * SIZE);
     char iter = '_';
     int ind = 0;
-
-    while (iter != '\n') {
-        iter = getc(stdin);
-        if (iter != ' ' && iter != '\n') {
-            input[ind++] = iter;
+    while (iter != '\n' && *everythingIsFine) {
+        if (ind > SIZE) {
+            *everythingIsFine = 0;
+        } else {
+            iter = getc(stdin);
+            if (iter != ' ' && iter != '\n') {
+                input[ind++] = iter;
+            }
         }
     }
     input[ind] = '\0';

@@ -7,11 +7,12 @@
 
 int main() {
     // считываем выражение для преобразования в нужный вид для польской нотации
-    char* expression = inputArr();
-    if (expression != NULL) {
+    int everythingIsFine = 1;
+    char* expression = inputArr(&everythingIsFine);
+    if (expression != NULL && everythingIsFine) {
         int len = strlen(expression);
         // конвертируем наше выражение в польскую нотацию
-        int everythingIsFine = !sCount(expression) || !checkOpers(expression) ? 0 : 1;
+        everythingIsFine = !sCount(expression) || !checkOpers(expression) ? 0 : 1;
         char* postfix = convert(expression, len, &everythingIsFine);
         if (postfix != NULL && everythingIsFine) {
 #ifdef renderString
@@ -33,6 +34,9 @@ int main() {
                 free(postfix);
             }
         }
+    }
+    else {
+        printf("n/a");
     }
     if (expression != NULL) {
         free(expression);

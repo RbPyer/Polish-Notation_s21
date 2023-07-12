@@ -8,7 +8,7 @@
 #include "stack.h"
 
 // блок констант
-#define SIZE 200
+#define SIZE 50
 #define SIN 's'
 #define sinF 1
 #define COS 'c'
@@ -31,7 +31,7 @@
 void validateOpers(char *stack);
 
 // reads our input via scanf string
-char *inputArr();
+char *inputArr(int *everythingIsFine);
 // calculate operator weight depending on its state
 int opWeight(char op);
 // check if our char is operator
