@@ -33,7 +33,7 @@ int main() {
                 free(postfix);
             }
         }
-    } 
+    }
     if (expression != NULL) {
         free(expression);
     }

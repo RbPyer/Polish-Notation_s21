@@ -8,7 +8,6 @@ void drawGraph(char *postfix, int *everythingIsFine) {
     int count = 0;
     for (double x = 0.0; x < 4.0 * M_PI && everythingIsFine; x += 4.0 * M_PI / WIDTH) {
         coords[count++] = calculate(postfix, x, everythingIsFine);
-
     }
     if (*everythingIsFine) {
         for (double y = dyLimit; y <= uyLimit; y += STEP) {
@@ -21,11 +20,9 @@ void drawGraph(char *postfix, int *everythingIsFine) {
             }
             putchar('\n');
         }
-    }
-    else {
+    } else {
         printf("n/a");
     }
-    
 }
 
 void delimiter() { printf("\n\nDELIMITER\n\n"); }
